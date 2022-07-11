@@ -11,6 +11,7 @@ import pennylane as qml
 from pennylane import numpy as np
 from src.vqe import vqe
 
+
 def diagonalize_hamiltonian(H, n_qubits):
     """Diagonalizes an n_qubits Hamiltonian to determine the
     ground state energy.
@@ -23,7 +24,7 @@ def diagonalize_hamiltonian(H, n_qubits):
         float: The lowest-energy eigenvalue found through exact diagonalization
         of the matrix representation of H.
     """
-    mat = np.zeros((2**n_qubits, 2**n_qubits), dtype=np.complex128)
+    mat = np.zeros((2 ** n_qubits, 2 ** n_qubits), dtype=np.complex128)
 
     for coeff, pauli in zip(H.coeffs, H.ops):
         mat += coeff * qml.grouping.pauli_word_to_matrix(

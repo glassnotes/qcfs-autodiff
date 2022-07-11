@@ -19,7 +19,7 @@ from src.fidelity_susceptibility import (
 
 
 def diagonalize_hamiltonian(H, n_qubits):
-    mat = np.zeros((2**n_qubits, 2**n_qubits), dtype=np.complex128)
+    mat = np.zeros((2 ** n_qubits, 2 ** n_qubits), dtype=np.complex128)
 
     for coeff, pauli in zip(H.coeffs, H.ops):
         mat += coeff * qml.grouping.pauli_word_to_matrix(

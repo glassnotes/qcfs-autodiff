@@ -68,7 +68,7 @@ def parse_command_line_arguments(args):
     except ValueError:
         print("Input L must be either 4 or 6.")
         sys.exit()
-        
+
     try:
         n_trials = int(args[2])
     except TypeError:
@@ -98,22 +98,23 @@ if __name__ == "__main__":
     # Set up basic simulation parameters based on system size #
     ###########################################################
     L, N_trials, folding_fn, scale_factors = parse_command_line_arguments(sys.argv)
-    
+
     r_values = np.arange(0.5, 1.5, 0.1)
     ground_state_params = np.load(f"optimal_params_{L}.npy")
 
     if L == 4:
-        initial_layout = [3, 4, 0, 1, 2] # Qubits 3/4 have the lowest CNOT error
+        initial_layout = [3, 4, 0, 1, 2]  # Qubits 3/4 have the lowest CNOT error
         n_qubits = 2  # Number of qubits required to represent reduced Ising Hamiltonian
         n_params = 3  # Number of variational parameters
         from src.spins_4 import reduced_H_1, reduced_H, variational_ansatz
     if L == 6:
-        initial_layout = [2, 3, 4, 0, 1] # Next lowest CNOT error between qubits 2/3 so use those
+        initial_layout = [2, 3, 4, 0, 1]  # Next lowest CNOT error between qubits 2/3 so use those
         n_qubits = 3
         n_params = 7
         from src.spins_6 import reduced_H_1, reduced_H
-        from src.spins_6 import variational_ansatz_manila as variational_ansatz # Optimized for arch
-
+        from src.spins_6 import (
+            variational_ansatz_manila as variational_ansatz,
+        )  # Optimized for arch
 
     #####################################################################
     # Set up the processor; not currently configurable via command line #
@@ -131,7 +132,6 @@ if __name__ == "__main__":
         **{"optimization_level": 0, "initial_layout": initial_layout, "coupling_map": coupling_map}
     )
 
-
     ##############################################
     # Configuration options for error mitigation #
     ##############################################
@@ -147,10 +147,9 @@ if __name__ == "__main__":
         }
         folding_fn_name = sys.argv[3] + sys.argv[4]
 
-
     #################################
     # Compute ground state energies #
-    #################################    
+    #################################
     def ground_state_circuit(obs, params):
         """A simple circuit that computes the energy of an observable after
         applying the variational ansatz.
@@ -166,7 +165,7 @@ if __name__ == "__main__":
         return qml.expval(obs)
 
     ground_state_qnode = qml.QNode(ground_state_circuit, dev, diff_method="parameter-shift")
-    
+
     print("Estimating ground state energies")
 
     def _compute_ground_state_energies(r_info):
@@ -205,14 +204,13 @@ if __name__ == "__main__":
 
     ground_state_energies = np.array(list(ground_state_energies))
 
-    
     #####################################
     # Compute second energy derivatives #
     #####################################
     print("Estimating second energy derivatives. This will take some time.")
 
     def _compute_second_energy_derivative_at_r(r_info):
-        """Function to compute second energy derivative for multiple trials for a given r."""        
+        """Function to compute second energy derivative for multiple trials for a given r."""
         this_dtheta_drs = []
         this_d2E_dr2s = []
         this_cond = []
@@ -242,7 +240,7 @@ if __name__ == "__main__":
     mitigated_dtheta_drs = np.array([x[0] for x in unprocessed_d2E_drs])
     d2E_dr2s = np.array([x[1] for x in unprocessed_d2E_drs])
     conds = np.array([x[2] for x in unprocessed_d2E_drs])
-    
+
     ###################################
     # Compute fidelity susceptibility #
     ###################################
@@ -269,7 +267,7 @@ if __name__ == "__main__":
     print("Estimating fidelity susceptibility")
 
     def _compute_fidelity_susceptibility_at_r(r_info):
-        """Function to compute fidelity susceptibility for multiple trials for a given r."""          
+        """Function to compute fidelity susceptibility for multiple trials for a given r."""
         fidelity_susceptibility_at_r = []
 
         for idx_trial in range(N_trials):
@@ -291,7 +289,6 @@ if __name__ == "__main__":
 
     fidelity_susceptibility = np.abs(np.array(list(fidelity_susceptibility)))
 
-    
     ###################################
     # Save and output all the results #
     ###################################
@@ -299,14 +296,10 @@ if __name__ == "__main__":
         f"{dir_prefix}/results-{L}spin_{folding_fn_name}_second_energy_derivative.npy",
         -d2E_dr2s / L,
     )
+    np.save(f"{dir_prefix}/results-{L}spin_{folding_fn_name}_conds.npy", conds)
     np.save(
-        f"{dir_prefix}/results-{L}spin_{folding_fn_name}_conds.npy",
-        conds
-    )        
-    np.save(
-        f"{dir_prefix}/results-{L}spin_{folding_fn_name}_dtheta_dr.npy",
-        mitigated_dtheta_drs,
-    )    
+        f"{dir_prefix}/results-{L}spin_{folding_fn_name}_dtheta_dr.npy", mitigated_dtheta_drs,
+    )
     np.save(
         f"{dir_prefix}/results-{L}spin_{folding_fn_name}_ground_state_energy.npy",
         ground_state_energies,
