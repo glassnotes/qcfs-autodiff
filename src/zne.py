@@ -99,7 +99,7 @@ def linear_extrapolation(scale_factors, energies):
     sum_energies = math.sum(unwrapped_energies)
 
     numerator = N * math.sum(scale_factors * unwrapped_energies) - sum_scales * sum_energies
-    denominator = N * math.sum(scale_factors ** 2) - sum_scales ** 2
+    denominator = N * math.sum(scale_factors**2) - sum_scales**2
     slope = numerator / denominator
 
     return (sum_energies - slope * sum_scales) / N

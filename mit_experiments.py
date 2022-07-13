@@ -44,7 +44,7 @@ def parse_command_line_arguments(args):
     """Parse command line arguments for simulation and mitigation configuration.
 
     Args:
-        args (List[str]): Should be a 5-element list where 
+        args (List[str]): Should be a 5-element list where
             - the element at index 1 is the system size
             - index 2 contains the number of trials
             - indices 3 and 4 contain mitigation information. The first should
@@ -153,11 +153,11 @@ if __name__ == "__main__":
     def ground_state_circuit(obs, params):
         """A simple circuit that computes the energy of an observable after
         applying the variational ansatz.
-        
+
         Args:
             obs (qml.Hamiltonian): a Hamiltonian.
             params (array[float]): the variational parameters.
-        
+
         Returns:
             float: the expectation value of obs.
         """
@@ -298,7 +298,8 @@ if __name__ == "__main__":
     )
     np.save(f"{dir_prefix}/results-{L}spin_{folding_fn_name}_conds.npy", conds)
     np.save(
-        f"{dir_prefix}/results-{L}spin_{folding_fn_name}_dtheta_dr.npy", mitigated_dtheta_drs,
+        f"{dir_prefix}/results-{L}spin_{folding_fn_name}_dtheta_dr.npy",
+        mitigated_dtheta_drs,
     )
     np.save(
         f"{dir_prefix}/results-{L}spin_{folding_fn_name}_ground_state_energy.npy",

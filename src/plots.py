@@ -15,19 +15,19 @@ ACC_OFFSETS = [0, 0.02]
 
 def make_scatter_plot(ax, true_data, unitary_data, cnot_data, y_axis_label, error_bar_type="std"):
     """Make two-panel scatter plot of the data to compare unitary folding and CNOT folding.
-    
+
     Args:
         ax (Axes): A pair of matplotlib axes to plot on.
         true_data (array[float]): The exact values of the data being plotted.
         unitary_data (list[array[array[float]]]): Values obtain through unitary
-            folding. Each element of the list should be a set of trials for a 
-            particular set of unitary folding scale factors, separated by value 
-            of r. For our experients, its shape should be (k, 10, 100) where k 
+            folding. Each element of the list should be a set of trials for a
+            particular set of unitary folding scale factors, separated by value
+            of r. For our experients, its shape should be (k, 10, 100) where k
             is the number of different scale factor sets investigated. The first
             element should correspond to unmitigated data.
         cnot_data (list[array[array[float]]]): The same type of data as the previous
             argument, but for CNOT folding.
-        error_bar_type (str): Indicates what value to plot for error bars. Either "std" 
+        error_bar_type (str): Indicates what value to plot for error bars. Either "std"
             or "std-error".
     """
     error_bar_scaling = 1
@@ -49,6 +49,8 @@ def make_scatter_plot(ax, true_data, unitary_data, cnot_data, y_axis_label, erro
             )
 
         ax[ax_idx].tick_params(axis="y", labelsize=14)
+        ax[ax_idx].tick_params(top=True, labeltop=False, bottom=True, labelbottom=True)
+        ax[ax_idx].tick_params(right=True, direction="in", length=6)
         ax[ax_idx].set_xlabel("$r$", fontsize=16)
         ax[ax_idx].set_title(f"{FOLDING_TYPES[ax_idx]} folding", fontsize=18)
         ax[ax_idx].set_ylabel(y_axis_label, fontsize=16)
@@ -57,16 +59,16 @@ def make_scatter_plot(ax, true_data, unitary_data, cnot_data, y_axis_label, erro
 
 
 def make_mean_absolute_error_plot(ax, true_data, unitary_data, cnot_data):
-    """Plots the mean absolute error of the data, i.e., for each trial, 
+    """Plots the mean absolute error of the data, i.e., for each trial,
     we compute the absolute error compare to the exact value, then take the mean.
-    
+
     Args:
         ax (Axes): A single matplotlib axis to plot on.
         true_data (array[float]): The exact values of the data being plotted.
         unitary_data (list[array[array[float]]]): Values obtain through unitary
-            folding. Each element of the list should be a set of trials for a 
-            particular set of unitary folding scale factors, separated by value 
-            of r. For our experients, its shape should be (k, 10, 100) where k 
+            folding. Each element of the list should be a set of trials for a
+            particular set of unitary folding scale factors, separated by value
+            of r. For our experients, its shape should be (k, 10, 100) where k
             is the number of different scale factor sets investigated. The first
             element should correspond to unmitigated data.
         cnot_data (list[array[array[float]]]): The same type of data as the previous
@@ -92,22 +94,24 @@ def make_mean_absolute_error_plot(ax, true_data, unitary_data, cnot_data):
 
     ax.set_xlabel("$r$", fontsize=16)
     ax.tick_params(axis="y", labelsize=14)
+    ax.tick_params(top=True, labeltop=False, bottom=True, labelbottom=True)
+    ax.tick_params(right=True, direction="in", length=6)
     ax.set_ylabel("Mean absolute mitigation error", fontsize=16)
     ax.set_xticks(R_VALUES, labels=[f"{x:.1f}" for x in R_VALUES], fontsize=14)
     ax.legend(fontsize=14)
 
 
 def make_absolute_error_mean_plot(ax, true_data, unitary_data, cnot_data, legend=True):
-    """Plots the absolute error of the mean data, i.e., we take the mean over all 
+    """Plots the absolute error of the mean data, i.e., we take the mean over all
     trials, and compute the absolute error.
-    
+
     Args:
         ax (Axes): A single matplotlib axis to plot on.
         true_data (array[float]): The exact values of the data being plotted.
         unitary_data (list[array[array[float]]]): Values obtain through unitary
-            folding. Each element of the list should be a set of trials for a 
-            particular set of unitary folding scale factors, separated by value 
-            of r. For our experients, its shape should be (k, 10, 100) where k 
+            folding. Each element of the list should be a set of trials for a
+            particular set of unitary folding scale factors, separated by value
+            of r. For our experients, its shape should be (k, 10, 100) where k
             is the number of different scale factor sets investigated. The first
             element should correspond to unmitigated data.
         cnot_data (list[array[array[float]]]): The same type of data as the previous
@@ -133,6 +137,8 @@ def make_absolute_error_mean_plot(ax, true_data, unitary_data, cnot_data, legend
 
     ax.set_xlabel("$r$", fontsize=16)
     ax.tick_params(axis="y", labelsize=14)
+    ax.tick_params(top=True, labeltop=False, bottom=True, labelbottom=True)
+    ax.tick_params(right=True, direction="in", length=6)
     ax.set_ylabel("Absolute mitigation error of mean", fontsize=16)
     ax.set_xticks(R_VALUES, labels=[f"{x:.1f}" for x in R_VALUES], fontsize=14)
     if legend is True:
