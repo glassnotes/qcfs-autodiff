@@ -50,7 +50,7 @@ def compute_mitigated_gradient(tape, mitigation_config, order=1):
     Args:
         tape (qml.QuantumTape): The quantum tape whose parameters we would
             like to compute the gradients of.
-        mitigation_config (Dict): Config options for error mitigation. Must
+        mitigation_config (Dict): Configuration options for error mitigation. Must
             contain. The following fields must be provided:
              - "extrapolation_fn" (Callable)
              - "folding_fn" (Callable)
@@ -223,7 +223,7 @@ def compute_fidelity_susceptibility(overlap_qnode, params, dtheta_drs, mitigatio
     # Compute the Hessian w.r.t. the output. If no mitigation config, we call
     # the param-shift Hessian function directly and look at the first value
     # (corresponds to gradient of the measurement outcome probability of the |00...0>
-    # bitstring, which is what's needed to evalute overlap). Otherwise, we must
+    # bitstring, which is what's needed to evaluate overlap). Otherwise, we must
     # use our mitigation function.
     if mitigation_config is None:
         hessian = qml.gradients.param_shift_hessian(overlap_qnode)(params, non_trainable_params)[0]
@@ -233,7 +233,7 @@ def compute_fidelity_susceptibility(overlap_qnode, params, dtheta_drs, mitigatio
 
     # Evaluate the fidelity susceptibility. This is computed using the chain rule
     # obtained by differentiating the expression for the overlap, with an additional
-    # simplification as described in equation XX of the notes.
+    # simplification as described in Eq. (9) of the paper.
     fid_susc = 0
     for i in range(hessian.shape[0]):
         for j in range(hessian.shape[1]):

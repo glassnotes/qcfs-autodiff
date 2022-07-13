@@ -1,6 +1,9 @@
 """
 Basic code for differentiable zero-noise extrapolation.
 
+This code is based on the examples provided in https://arxiv.org/abs/2202.13414,
+"Quantum computing with differentiable quantum transforms".
+
 Autodiff-friendly implementations are achieved using PennyLane's
 math library, which performs framework-agnostic manipulation of tensors
 (i.e., the implementation should work independently of whether one is

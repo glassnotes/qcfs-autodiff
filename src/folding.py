@@ -1,5 +1,8 @@
 """
-Methods to apply scaled noise to a quantum cricuit for error mitigation.
+Methods to apply scaled noise to a quantum circuit for error mitigation.
+
+This code is based on the examples provided in https://arxiv.org/abs/2202.13414,
+"Quantum computing with differentiable quantum transforms".
 
 This file contains methods for:
  - CNOT pair insertion (cnot_folding)

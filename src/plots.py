@@ -22,7 +22,7 @@ def make_scatter_plot(ax, true_data, unitary_data, cnot_data, y_axis_label, erro
         unitary_data (list[array[array[float]]]): Values obtain through unitary
             folding. Each element of the list should be a set of trials for a
             particular set of unitary folding scale factors, separated by value
-            of r. For our experients, its shape should be (k, 10, 100) where k
+            of r. For our experiments, its shape should be (k, 10, 100) where k
             is the number of different scale factor sets investigated. The first
             element should correspond to unmitigated data.
         cnot_data (list[array[array[float]]]): The same type of data as the previous
@@ -111,7 +111,7 @@ def make_absolute_error_mean_plot(ax, true_data, unitary_data, cnot_data, legend
         unitary_data (list[array[array[float]]]): Values obtain through unitary
             folding. Each element of the list should be a set of trials for a
             particular set of unitary folding scale factors, separated by value
-            of r. For our experients, its shape should be (k, 10, 100) where k
+            of r. For our experiments, its shape should be (k, 10, 100) where k
             is the number of different scale factor sets investigated. The first
             element should correspond to unmitigated data.
         cnot_data (list[array[array[float]]]): The same type of data as the previous
