@@ -26,7 +26,7 @@ from pennylane import numpy as np
 def compute_gamma_j(scale_factors):
     """Evaluates the Lagrange basis polynomials at 0.
 
-    This function implements equation (2) of my notes for x = 0.
+    This function computes the \gamma_j defined in Eq. (25) of the manuscript.
 
     Args:
         scale_factors (array[float]): The noise scale factors.
@@ -50,7 +50,7 @@ def compute_gamma_j(scale_factors):
 def richardson_extrapolation(scale_factors, noisy_results):
     """Extrapolate to the zero-noise limit using Richardson extrapolation.
 
-    This function implements equation (3) of my notes. It has been
+    This function implements Eq. (25) of my notes. It has been
     implemented to consider extrapolation of two different types of values:
      1. expectation values
      2. measurement outcome probabilities
