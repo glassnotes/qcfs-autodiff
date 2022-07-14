@@ -50,7 +50,7 @@ def compute_gamma_j(scale_factors):
 def richardson_extrapolation(scale_factors, noisy_results):
     """Extrapolate to the zero-noise limit using Richardson extrapolation.
 
-    This function implements Eq. (25) of my notes. It has been
+    This function implements Eq. (25) of the manuscript. It has been
     implemented to consider extrapolation of two different types of values:
      1. expectation values
      2. measurement outcome probabilities
