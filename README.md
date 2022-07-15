@@ -1,6 +1,6 @@
 # qcfs-autodiff
 
-This repository contains all the scripts and results for the quantum computing fidelity susceptibility with automatic differentiation project. 
+This repository contains all the scripts and results for the quantum computing fidelity susceptibility with automatic differentiation project ([arXiv:2207.06526](https://arxiv.org/abs/2207.06526)).
 
  - Required packages can be installed using the provided `requirements.txt` file. (For results in the paper, Python 3.10.4 was used)
  - Data used to produce plots in the paper is provided in the `results-*` directories, along with Jupyter notebooks to generate those plots.
